@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <title>Liste des recettes</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Bootstrap CSS -->
+<link rel=”stylesheet” href=”https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css”rel=”nofollow” integrity=”sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm” crossorigin=”anonymous”>    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
+    
+</head>
+
+<body>
+
+    <div class="container-fluid mt-3">
+        <div class="row">
+            <div class="col">
+                <h1>Liste des recettes</h1>
+            </div>
+            <div class="col text-end">
+                <a href="/ajoutRecette" class="btn btn-primary">Ajouter une recette</a>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Titre</th>
+                            <th>Description</th>
+                            <th>Instructions</th>
+                            <th>Temps de préparation (min)</th>
+                            <th>Temps de cuisson (min)</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="recette : ${recettes}">
+                            <td th:text="${recette.id}"></td>
+                            <td th:text="${recette.titre}"></td>
+                            <td th:text="${recette.description}"></td>
+                            <td th:text="${recette.instructions}"></td>
+                            <td th:text="${recette.tempsPreparation}"></td>
+                            <td th:text="${recette.tempsCuisson}"></td>
+                             <td>
+                            <a th:href="@{/recettess/{id}(id=${recette.id})}" class="btn btn-sm btn-primary">Modifier</a>
+                        	<a th:href="@{/supprimerRecette/{id}(id=${recette.id})}" class="btn btn-sm btn-danger">Supprimer</a>
+							 <form th:action="@{/favoris/__${recette.id}__}" method="POST">
+							         <button type="submit">Ajouter aux favoris</button>
+							 </form>
+                         </td>
+ 
+                        </tr>
+                    </tbody>
+                </table>
+                            <div class="mt-5"><a class="link-primary" th:href="@{/logout}">Logout</a></div>
+                
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
